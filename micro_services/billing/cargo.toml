@@ -1,0 +1,10 @@
+[package]
+name = "billing"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "billing"
+path = "src/main.rs"

@@ -1,0 +1,24 @@
+[workspace.package]
+name = "flowers"
+version = "0.1.0"
+edition = "2024"
+authors = ["GUIGUI & KEKE"]
+
+[workspace]
+resolver = "2"
+members = ["libraries/*", "micro_services/*"]
+
+[workspace.dependencies]
+mongodb = "3.2.5"
+tokio = { version = "1.47.1", features = ["full"] }
+thiserror = "2.0.16"
+serde = { version = "1.0.226", features = ["derive"] }
+
+lib_logger = { path = "./libraries/logger" }
+dto = { path = "./libraries/dto" }
+
+inventory_management = { path = "./micro_services/inventory_management" }
+client = { path = "./micro_services/client" }
+
+[workspace.lints.rust]
+unused = "allow"

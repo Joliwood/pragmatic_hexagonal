@@ -1,0 +1,20 @@
+[package]
+name = "client"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "client"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { workspace = true }
+thiserror = { workspace = true }
+mongodb = { workspace = true }
+serde = { workspace = true }
+
+lib_logger = { workspace = true }
+inventory_management = { workspace = true }
+dto = { workspace = true }

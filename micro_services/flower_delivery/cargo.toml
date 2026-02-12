@@ -1,0 +1,10 @@
+[package]
+name = "flower_delivery"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "flower_delivery"
+path = "src/main.rs"

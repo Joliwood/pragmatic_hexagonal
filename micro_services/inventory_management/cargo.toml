@@ -1,0 +1,23 @@
+[package]
+name = "inventory_management"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "inventory_management"
+path = "src/main.rs"
+
+[lib]
+name = "inventory_management"
+path = "src/lib.rs"
+
+[dependencies]
+tokio = { workspace = true }
+mongodb = { workspace = true }
+thiserror = { workspace = true }
+serde = { workspace = true }
+
+lib_logger = { workspace = true }
+dto = { workspace = true }

@@ -1,0 +1,14 @@
+[package]
+name = "dto"
+description = "Data Transfer Objects, shared across microservices and libraries"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[lib]
+name = "dto"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { workspace = true }

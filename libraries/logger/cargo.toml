@@ -1,0 +1,13 @@
+[package]
+name = "lib_logger"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[lib]
+name = "logger"
+path = "src/lib.rs"
+
+[dependencies]
+thiserror = { workspace = true }

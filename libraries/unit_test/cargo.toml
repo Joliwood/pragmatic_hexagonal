@@ -1,0 +1,10 @@
+[package]
+name = "unit_test"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[lib]
+name = "unit_test"
+path = "src/lib.rs"
