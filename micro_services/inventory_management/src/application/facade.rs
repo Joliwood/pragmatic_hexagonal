@@ -1,5 +1,5 @@
-use crate::MongodbInventoryRepository;
 use crate::application::InventoryUseCases;
+use crate::domains::InventoryRepositoryWrite;
 use crate::result::Result;
 
 /// Unique entry point for external microservice usages.
@@ -9,18 +9,22 @@ use crate::result::Result;
 /// no knowledge of what DB kind we are using.
 ///
 /// The use-cases can use write or read-only access, it doesn't matter here.
-pub struct InventoryApplication {
-    usecases: InventoryUseCases<MongodbInventoryRepository>,
+pub struct InventoryApplication<R>
+where
+    R: InventoryRepositoryWrite,
+{
+    usecases: InventoryUseCases<R>,
 }
 
-impl InventoryApplication {
-    /// Create a new application facade
-    pub async fn new() -> Result<Self> {
-        let repo = MongodbInventoryRepository::new_read_write("mongodb://localhost:27017").await?;
-
-        Ok(Self {
+impl<R> InventoryApplication<R>
+where
+    R: InventoryRepositoryWrite,
+{
+    /// Create a new application facade from an inventory repository port.
+    pub fn new(repo: R) -> Self {
+        Self {
             usecases: InventoryUseCases::new(repo),
-        })
+        }
     }
 
     pub fn get_flower_quantity(&self, kind: &str) -> Result<Option<u32>> {

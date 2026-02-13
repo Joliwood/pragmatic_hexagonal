@@ -1,20 +1,18 @@
-use dto::FlowerDTO;
-
 use crate::domains::InventoryRepositoryWrite;
 use crate::result::{Error, Result};
 
-pub(crate) struct InventoryUseCases<A>
+pub(crate) struct InventoryUseCases<R>
 where
-    A: InventoryRepositoryWrite,
+    R: InventoryRepositoryWrite,
 {
-    adapter: A,
+    adapter: R,
 }
 
-impl<A> InventoryUseCases<A>
+impl<R> InventoryUseCases<R>
 where
-    A: InventoryRepositoryWrite,
+    R: InventoryRepositoryWrite,
 {
-    pub fn new(adapter: A) -> Self {
+    pub fn new(adapter: R) -> Self {
         Self { adapter }
     }
 
@@ -22,7 +20,7 @@ where
     /// Returns Ok(()) on success, Err(Error) on failure.
     pub fn reserve_flowers(&mut self, kind: &str, quantity: u32) -> Result<()> {
         if let Some(flower) = self.adapter.get_flower_by_kind(kind) {
-            if flower.quantity_left >= quantity {
+            if flower.flower_dto.quantity_left >= quantity {
                 let change = -(quantity as i32);
                 self.adapter.update_flower_quantity(kind, change);
                 Ok(())
@@ -39,7 +37,7 @@ where
         Ok(self
             .adapter
             .get_flower_by_kind(kind)
-            .map(|f| f.quantity_left))
+            .map(|f| f.flower_dto.quantity_left))
     }
 
     /// Tool related use-case example (stub)

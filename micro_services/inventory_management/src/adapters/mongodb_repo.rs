@@ -1,7 +1,5 @@
 use mongodb::{Client, error::Result};
 
-use dto::FlowerDTO;
-
 use crate::domains::{Flower, InventoryRepositoryRead, InventoryRepositoryWrite, Tool};
 
 /// MongoDB repository implementation for inventory management.
@@ -36,7 +34,7 @@ impl MongodbInventoryRepository {
 
 // Implementations for business needs
 impl InventoryRepositoryRead for MongodbInventoryRepository {
-    fn get_flower_by_kind(&self, _kind: &str) -> Option<FlowerDTO> {
+    fn get_flower_by_kind(&self, _kind: &str) -> Option<Flower> {
         // MongoDB logic (find_one)
         todo!()
     }

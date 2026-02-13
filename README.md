@@ -6,7 +6,6 @@ A pragmatic, beginner-friendly guide to Hexagonal Architecture (Ports & Adapters
 - It is not meant to be a comprehensive guide to microservices architecture, the subject is focused on Hexagonal Architure.
 
 ### Hexagonal Architecture Structure
-
 Adapters:
 - Repositories > Everything related to technical logic implementation
 
@@ -24,11 +23,12 @@ Application:
     They can orchestrate one or more business services, as well as calls to non-business adapters.
 
 ### Summary
-
 The end goal is that at the top of the codebase, there should only be three types of calls:
 - Services (business logic only)
 - Adapters (technical logic only)
 - Use cases (which orchestrate both)
+
+The best micro-service in this repository to understand hexagonal architecture is inventory_management
 
 In practice, we will almost always have use cases, because we often need to orchestrate both technical and business calls.
 
@@ -38,7 +38,8 @@ In practice, we will almost always have use cases, because we often need to orch
 
 ### Separation of Concerns & Coupling
 - Each service has write access only to its own database.
-- The only things accessible from outside a service's domain are the ports.
+- From outside a service, the intended public API is the application/use-cases entry point.
+    Ports are internal contracts used inside the service to decouple application/domain from adapters.
 - Each database can use its own database technology; if one service uses MongoDB, the other services don't need to know.
 - It is impossible for a service to connect to a database that isn't its own with more than read-only access.
 

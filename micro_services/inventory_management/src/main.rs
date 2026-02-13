@@ -1,20 +1,13 @@
-pub mod adapters;
-pub mod domains;
-pub mod infrastructure;
-pub mod result;
-
-pub use domains::*;
-pub use infrastructure::*;
-
-use crate::adapters::MongodbInventoryRepository;
+use inventory_management::{build_inventory_application, init_logger};
 
 #[tokio::main]
 async fn main() {
     init_logger();
 
-    let mut mongodb_repo = MongodbInventoryRepository::new_read_write("mongodb://localhost:27017")
-        .await
-        .unwrap();
+    let Ok(inventory_app) = build_inventory_application().await else {
+        println!("Error building inventory application");
+        return;
+    };
 
-    let roses = mongodb_repo.get_flower_by_kind("Rose");
+    let _roses = inventory_app.get_flower_quantity("Rose");
 }

@@ -1,9 +1,7 @@
-use dto::FlowerDTO;
-
 use crate::domains::{Flower, Tool};
 
 pub trait InventoryRepositoryRead {
-    fn get_flower_by_kind(&self, kind: &str) -> Option<FlowerDTO>;
+    fn get_flower_by_kind(&self, kind: &str) -> Option<Flower>;
     fn get_tool_by_kind(&self, kind: &str) -> Option<Tool>;
 }
 

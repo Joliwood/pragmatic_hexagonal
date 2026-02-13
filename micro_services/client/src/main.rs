@@ -1,8 +1,6 @@
-use inventory_management::InventoryApplication;
+use inventory_management::build_inventory_application;
 
-use crate::{
-    adapters::MongodbClientRepository, domains::ClientService, infrastructure::init_logger,
-};
+use crate::infrastructure::init_logger;
 
 pub mod adapters;
 mod domains;
@@ -14,9 +12,12 @@ pub mod result;
 async fn main() {
     init_logger();
 
-    // For this demo we use an in-memory inventory application provided by the inventory micro-service.
-    // This shows calling the service application (use-cases) directly without touching DB adapters.
-    let mut inventory_app = InventoryApplication::new().await.unwrap();
+    // For this demo, client calls inventory use-cases only.
+    // Inventory technical configuration (DB URI, adapter) stays internal to inventory_management.
+    let Ok(mut inventory_app) = build_inventory_application().await else {
+        println!("Error building inventory application");
+        return;
+    };
 
     // -- Practical case 0 > 1 -- //
     let requested_qty = 15;
