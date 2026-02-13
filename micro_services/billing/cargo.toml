@@ -1,5 +1,6 @@
 [package]
 name = "billing"
+description = "Empty micro-service for this pragmatic example"
 edition = "2024"
 
 [lints]

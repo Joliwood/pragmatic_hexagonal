@@ -7,7 +7,7 @@ use crate::{Flower, Tool};
 
 #[derive(Serialize, Deserialize)]
 pub struct FlowerDocument {
-    pub(crate) id: ObjectId,
+    pub id: ObjectId,
 
     #[serde(flatten)]
     pub flower_entity: Flower,
@@ -15,7 +15,7 @@ pub struct FlowerDocument {
 
 #[derive(Serialize, Deserialize)]
 pub struct ToolDocument {
-    pub(crate) id: ObjectId,
+    pub id: ObjectId,
 
     #[serde(flatten)]
     pub tool_entity: Tool,

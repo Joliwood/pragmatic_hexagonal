@@ -1,20 +1,26 @@
-use crate::adapters::InMemoryInventoryRepository;
+use crate::MongodbInventoryRepository;
 use crate::application::InventoryUseCases;
 use crate::result::Result;
 
 /// Unique entry point for external microservice usages.
-/// Internally uses an in-memory repository for demo/teaching purposes (no network/DB).
+///
+/// Internally uses an mongodb repository for demo/teaching purposes (no network/DB)
+/// but at an external utilisation, we only see application facade with use-cases, with
+/// no knowledge of what DB kind we are using.
+///
+/// The use-cases can use write or read-only access, it doesn't matter here.
 pub struct InventoryApplication {
-    usecases: InventoryUseCases<InMemoryInventoryRepository>,
+    usecases: InventoryUseCases<MongodbInventoryRepository>,
 }
 
 impl InventoryApplication {
-    /// Create a new application facade with an empty in-memory repository
-    pub fn new_inmemory() -> Self {
-        let repo = InMemoryInventoryRepository::new();
-        Self {
+    /// Create a new application facade
+    pub async fn new() -> Result<Self> {
+        let repo = MongodbInventoryRepository::new_read_write("mongodb://localhost:27017").await?;
+
+        Ok(Self {
             usecases: InventoryUseCases::new(repo),
-        }
+        })
     }
 
     pub fn get_flower_quantity(&self, kind: &str) -> Result<Option<u32>> {

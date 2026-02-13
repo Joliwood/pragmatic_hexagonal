@@ -8,7 +8,7 @@ pub trait InventoryRepositoryRead {
 }
 
 /// The WRITE trait inherits methods from the READ trait
-pub(crate) trait InventoryRepositoryWrite: InventoryRepositoryRead {
+pub trait InventoryRepositoryWrite: InventoryRepositoryRead {
     fn update_flower_quantity(&mut self, kind: &str, quantity_change: i32);
     fn update_tool_quantity(&mut self, kind: &str, quantity_change: i32);
 }

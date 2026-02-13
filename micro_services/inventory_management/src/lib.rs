@@ -1,5 +1,5 @@
 mod adapters;
-pub mod application;
+mod application;
 mod domains;
 mod result;
 

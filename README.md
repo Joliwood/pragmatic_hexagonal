@@ -1,6 +1,10 @@
 # pragmatic_hexagonal
 A pragmatic, beginner-friendly guide to Hexagonal Architecture (Ports & Adapters). Decouple your business logic from infrastructure without over-engineering.
 
+## What this repository is NOT about
+- It is not meant to be a proper boilerplate or usable template for production. It is meant to be a learning tool, and as such, it is intentionally simplified and focused on the core concepts of Hexagonal Architecture.
+- It is not meant to be a comprehensive guide to microservices architecture, the subject is focused on Hexagonal Architure.
+
 ### Hexagonal Architecture Structure
 
 Adapters:

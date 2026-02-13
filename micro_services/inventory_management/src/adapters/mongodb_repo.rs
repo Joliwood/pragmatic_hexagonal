@@ -1,14 +1,28 @@
-use dto::FlowerDTO;
 use mongodb::{Client, error::Result};
+
+use dto::FlowerDTO;
 
 use crate::domains::{Flower, InventoryRepositoryRead, InventoryRepositoryWrite, Tool};
 
+/// MongoDB repository implementation for inventory management.
+///
+/// Here, lock struct and all the MongoDB logic with pub(crate)
+/// forces for external access to only use application layer with use-cases.
+///
+/// The repository / technical application with mongodb stay inside this MS.
+///
+/// Even if there isn't any difference at external (use-cases) between read-only
+/// and read-write access, it is important to keep this separation to have a good
+/// maintainable and scalable codebase.
+///
+/// It also improve the tests, which will be
+/// different if we want to test queries only, or updates / commands.
 pub(crate) struct MongodbInventoryRepository {
     client: Client,
 }
 impl MongodbInventoryRepository {
     /// External function, read-only access
-    pub async fn new_read(db_path: &str) -> Result<Self> {
+    pub(crate) async fn new_read(db_path: &str) -> Result<Self> {
         let client = Client::with_uri_str(db_path).await?;
         Ok(Self { client })
     }
